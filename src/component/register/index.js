@@ -6,11 +6,7 @@ import firebase from '../services/firebase.js'
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
-
 import Handler from '../services/userOperation';
-
-let database = firebase.database().ref();
-let userData = database.child('users');
 
 export default class Register extends Component {
   constructor(props) {

@@ -8,9 +8,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import Handler from '../services/userOperation';
 
-
-let database = firebase.database().ref();
-let userNode = database.child('users');
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -26,10 +23,7 @@ export default class Login extends Component {
     this.setState({ open: true });
   };
 
-  handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+  handleClose = (event) => {
     this.setState({ open: false });
   };
 
@@ -38,13 +32,10 @@ export default class Login extends Component {
     console.log(event.target.value);
   };
 
-
   handelSubmit = (event) => {
-
     this.setState({ open: false, loginState: '' });
     if ((this.state.email === '') && (this.state.password === '')) {
       this.setState({ open: true, loginState: 'Fields are empty' });
-
     } else {
       Handler.userLogin(this.state.email, this.state.password)
         .then(res => {
@@ -95,14 +86,12 @@ export default class Login extends Component {
                 value={this.state.password}
                 placeholder='Password'
                 onChange={this.handleText}
-
                 fullWidth
                 labelWidth={this.labelRef ? this.labelRef.offsetWidth : 0}
               />
             </FormControl>
           </div>
         </div>
-
 
         <div className="login-button">
           <Button variant="contained" color="primary" fullWidth onClick={this.handelFunction}  >
@@ -111,7 +100,6 @@ export default class Login extends Component {
         </div>
 
         <div>
-
           <Snackbar
             anchorOrigin={{
               vertical: 'bottom',
@@ -129,7 +117,6 @@ export default class Login extends Component {
                 key="close"
                 aria-label="Close"
                 color="inherit"
-
                 onClick={this.handleClose}
               >
                 <i className="material-icons">
@@ -139,40 +126,6 @@ export default class Login extends Component {
             ]}
           />
         </div>
-
-        {/* <div>
-         
-          <Snackbar
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            open={this.state.open}
-            autoHideDuration={6000}
-            onClose={this.handleClose}
-            ContentProps={{
-              'aria-describedby': 'message-id',
-            }}
-            message={<span id="message-id">{this.state.loginState}</span>}
-            action={[
-              //   <Button key="undo" color="secondary" size="small" onClick={this.handleClose}>
-              //     UNDO
-              // </Button>,
-              <IconButton
-                key="close"
-                aria-label="Close"
-                color="inherit"
-
-                onClick={this.handleClose}
-              >
-                <i className="material-icons">
-                  clear
-                </i>
-              </IconButton>,
-            ]}
-          />
-        </div> */}
-
 
       </div >
     )
