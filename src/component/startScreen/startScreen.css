@@ -1,0 +1,37 @@
+.main-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-container{
+    margin-top: 100px;
+    font-size: 60px;
+    font-family: fantasy;
+    margin-bottom: 30px;
+}
+
+.content{
+    /* background-color: blueviolet; */
+    margin: 30px;
+}
+
+.content1{
+  /* background-color: blueviolet; */
+  margin: 30px;
+}
+
+.button1-wrapper{
+    padding: 16px 70px;
+    background-color: blue;
+
+}
+
+.button2-wrapper{
+    padding: 14px 44px;
+   
+}
+
+/* .initialPage-main-wrapper{
+  background-image: url(../../assets/tictoe.png);
+  height: 100%;  */
