@@ -1,0 +1,34 @@
+[debug] [2019-02-21T09:46:53.853Z] ----------------------------------------------------------------------
+[debug] [2019-02-21T09:46:53.859Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2019-02-21T09:46:53.859Z] CLI Version:   6.3.1
+[debug] [2019-02-21T09:46:53.859Z] Platform:      darwin
+[debug] [2019-02-21T09:46:53.859Z] Node Version:  v10.15.0
+[debug] [2019-02-21T09:46:53.861Z] Time:          Thu Feb 21 2019 15:16:53 GMT+0530 (India Standard Time)
+[debug] [2019-02-21T09:46:53.861Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-02-21T09:46:53.891Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-02-21T09:46:53.891Z] > authorizing via signed-in user
+[debug] [2019-02-21T09:46:53.891Z] [iam] checking project tic-tac-toe-a6d89 for permissions ["firebase.projects.get"]
+[debug] [2019-02-21T09:46:53.894Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/tic-tac-toe-a6d89:testIamPermissions  
+
+[debug] [2019-02-21T09:46:55.670Z] <<< HTTP RESPONSE 200
+[debug] [2019-02-21T09:46:55.673Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/tic-tac-toe-a6d89  
+ 
+[debug] [2019-02-21T09:46:57.261Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/vrushalibhosale/workspace/react/react-tic-tac-toe'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2019-02-21T09:47:00.053Z] Fetching environment
+[debug] [2019-02-21T09:47:00.062Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/906824560468:getServerAppConfig  
+ 
+[debug] [2019-02-21T09:47:00.063Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/906824560468/clients/_:getWebAppConfig  
+ 
+[debug] [2019-02-21T09:47:00.574Z] <<< HTTP RESPONSE 200
+[debug] [2019-02-21T09:47:00.575Z] Starting @google-cloud/functions-emulator
+[debug] [2019-02-21T09:47:00.666Z] <<< HTTP RESPONSE 200
+[warn] ⚠  hosting: Port 5000 is not available. Trying another port...
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5005
+[debug] [2019-02-21T09:47:05.726Z] Parsing function triggers
+[info] i  functions: No HTTPS functions found. Use firebase functions:shell if you would like to emulate other types of functions.
