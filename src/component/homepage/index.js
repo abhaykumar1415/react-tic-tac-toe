@@ -1,46 +1,71 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import './style.css';
-import firebase from '../../services/firebase.js';
-import Handler from '../../services/controller.js';
-
-var database = firebase.database().ref();
-var user=database.child('users');
+import userOperations from '../services/userOperations.js';
 
 export default class HomePage extends Component {
-  addNewUser = () => {
-    Handler.addNewUser();
+  constructor() {
+    super();
+    this.state = {
+      users: [],
+
+    }
   }
   generateMatchId = () => {
-    Handler.getToken();
+    userOperations.getToken();
   }
-  showUsers(){
-    console.log("Inside show users");
-    Handler.fetchPlayers();
+  showUsers(email) {
+    userOperations.fetchPlayers(email);
+    //   console.log("Inside show users");
+    //   userOperations.fetchPlayers(email)
+    //     .then((result) => {
+    //       this.setState({ users: result });
+    //       console.log("Users array", result);
+    //     }).catch(err => {
+    //       console.log("Users array", err);
+    //     })
   }
-  addNewMatch = () => {
+  addNewMatch = (email) => {
     console.log("Inside new match");
-    Handler.fetchPlayers();
-    Handler.addNewMatch();
+    userOperations.fetchPlayers(email);
+    userOperations.addNewMatch();
   }
   render() {
+    console.log("props email", this.props.history.location.state.email)
     return (
       <div className="wrapper">
-        <Button variant="contained" color="primary" onClick={this.addNewUser}>
-          Add User
-        </Button>
-        <Button variant="contained" color="primary" onClick={this.addNewMatch}>
-          Add Match
-        </Button>
-        <Button variant="contained" color="primary" onClick={this.showUsers}>
-          Show Users 
-        </Button>
-        <Button variant="contained" color="primary" onClick={this.addNewUser}>
-          Show Matches
-        </Button>
-        <Button variant="contained" color="primary" onClick={this.generateMatchId}>
-         Get Token
-        </Button>
+        <div className="btnwrapper">
+          <Button variant="contained" color="primary" onClick={() => this.addNewMatch(this.props.history.location.state.email)}>
+            Add Match
+            </Button>
+          <Button variant="contained" color="primary" onClick={() => this.showUsers(this.props.history.location.state.email)}>
+            Show Users
+            </Button>
+          <Button variant="contained" color="primary" onClick={this.addNewUser}>
+            Show Matches
+            </Button>
+          <Button variant="contained" color="primary" onClick={this.generateMatchId}>
+            Get Token
+            </Button>
+        </div>
+        <div>
+          <table>
+            {
+              this.state.users.map(data => {
+                return (
+                  <tr>
+                    <td></td>
+                    <td>
+                      <Button variant="contained" color="primary">
+                        Invite
+                    </Button>
+                    </td>
+                  </tr>
+                )
+              })
+            }
+          </table>
+        </div>
       </div>
     )
   }

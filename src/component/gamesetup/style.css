@@ -1,0 +1,33 @@
+ .paperWrapper{
+    background-color: red;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.wrapper{
+  padding: 10%;
+  display: flex;
+  justify-content: space-around
+}
+/* .paper{
+  height:150px;
+  width: 230px;
+  
+}
+.paperWrapper{
+  display: flex;
+  justify-content: center
+  
+}
+.gridWrapper{
+  margin-top:30px;
+} */ 
+.block{
+    background-color: blue;
+    width: 25%;
+    height: 100px;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
