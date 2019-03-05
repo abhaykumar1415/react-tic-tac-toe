@@ -1,13 +1,8 @@
 import firebase from './firebase.js';
-import { resolve } from 'path';
-import { promises } from 'fs';
-import { reject } from 'q';
 
 var database = firebase.database().ref();
 var userdata = database.child('users');
 var userToken;
-var isLoggedIn;
-var isRegister;
 class UserOperation {
 
   getCurrentUser(emailinput) {
