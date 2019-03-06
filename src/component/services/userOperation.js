@@ -1,4 +1,4 @@
-import firebase from './firebase.js';
+import firebase from './firebase';
 import { resolve } from 'path';
 import { promises } from 'fs';
 import { reject } from 'q';
@@ -8,12 +8,12 @@ var userdata = database.child('users');
 var userToken;
 var isLoggedIn;
 var isRegister;
+
 class UserOperation {
 
   getCurrentUser(emailinput) {
 
     firebase.auth().currentUser.getIdToken(true).then(function (Token) {
-
       userToken = Token;
       userdata.once('value', snap => {
         snap.forEach(function (child) {
@@ -26,12 +26,12 @@ class UserOperation {
           }
         })
       })
-
     }).catch(function (error) {
       console.log("error :", error);
     })
   }
   userLogin = (email, password) => {
+
     return new Promise((resolve, reject) => {
       firebase.auth().signInWithEmailAndPassword(email, password)
         .then((result) => {

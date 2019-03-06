@@ -8,6 +8,9 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import Handler from '../services/userOperation';
 
+import Navigation from '../navigation';
+import TextField from '@material-ui/core/TextField';
+
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +18,8 @@ export default class Login extends Component {
       email: '',
       password: '',
       open: false,
-      loginState: ''
+      loginState: '',
+      loggedIn: false
     }
   }
 
@@ -40,11 +44,16 @@ export default class Login extends Component {
       Handler.userLogin(this.state.email, this.state.password)
         .then(res => {
           console.log('res :', res);
-          Handler.getCurrentUser(this.state.email);
+          // Handler.getCurrentUser(this.state.email);
           this.setState({ opne: res.success, loginState: "Login Successfully" });
+          this.props.history.push({
+            pathname: '/navigation',
+            state: {
+              email: this.state.email
+            }
+          });
         }).catch(err => {
           console.log("value", err);
-          this.setState({ opne: err.success, loginState: err.result.message });
         });
     }
   }
@@ -60,12 +69,14 @@ export default class Login extends Component {
   }
 
   render() {
+
     return (
-      <div className="login-wrapper" >
-        <div className="login-content">
-          <div className="login-input">
-            <FormControl variant="outlined">
-              <OutlinedInput
+      <div>
+        <div className="login-wrapper" >
+          <div className="login-content">
+            <div className="login-input">
+              <FormControl variant="outlined">
+                {/* <OutlinedInput
                 id="component-outlined"
                 name='name'
                 placeholder="User Name"
@@ -73,60 +84,74 @@ export default class Login extends Component {
                 onChange={this.handleChange}
                 fullWidth
                 labelWidth={this.labelRef ? this.labelRef.offsetWidth : 0}
-              />
-            </FormControl>
-          </div>
-          <div className="login-password">
-            <FormControl variant="outlined">
+              /> */}
+                <TextField
+                  id="outlined-email-input"
+                  label="Email"
+                  type="email"
+                  name="email"
+                  emailpattern="^[a-z0-9](\.?[a-z0-9])@qed42\.com$"
+                  placeholder="User Name"
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                  fullWidth
+                  autoComplete="email"
+                  margin="normal"
+                  variant="outlined"
+                />
+              </FormControl>
+            </div>
+            <div className="login-password">
+              <FormControl variant="outlined">
 
-              <OutlinedInput
-                id="component-outlined"
-                name='password'
-                type='password'
-                value={this.state.password}
-                placeholder='Password'
-                onChange={this.handleText}
-                fullWidth
-                labelWidth={this.labelRef ? this.labelRef.offsetWidth : 0}
-              />
-            </FormControl>
+                <OutlinedInput
+                  id="component-outlined"
+                  name='password'
+                  type='password'
+                  value={this.state.password}
+                  placeholder='Password'
+                  onChange={this.handleText}
+                  fullWidth
+                  labelWidth={this.labelRef ? this.labelRef.offsetWidth : 0}
+                />
+              </FormControl>
+            </div>
           </div>
-        </div>
 
-        <div className="login-button">
-          <Button variant="contained" color="primary" fullWidth onClick={this.handelFunction}  >
-            Login
+          <div className="login-button">
+            <Button variant="contained" color="primary" fullWidth onClick={this.handelFunction}  >
+              Login
         </Button>
-        </div>
+          </div>
 
-        <div>
-          <Snackbar
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            open={this.state.open}
-            autoHideDuration={6000}
-            onClose={this.handleClose}
-            ContentProps={{
-              'aria-describedby': 'message-id',
-            }}
-            message={<span id="message-id">{this.state.loginState}</span>}
-            action={[
-              <IconButton
-                key="close"
-                aria-label="Close"
-                color="inherit"
-                onClick={this.handleClose}
-              >
-                <i className="material-icons">
-                  clear
+          <div>
+            <Snackbar
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              open={this.state.open}
+              autoHideDuration={6000}
+              onClose={this.handleClose}
+              ContentProps={{
+                'aria-describedby': 'message-id',
+              }}
+              message={<span id="message-id">{this.state.loginState}</span>}
+              action={[
+                <IconButton
+                  key="close"
+                  aria-label="Close"
+                  color="inherit"
+                  onClick={this.handleClose}
+                >
+                  <i className="material-icons">
+                    clear
                 </i>
-              </IconButton>,
-            ]}
-          />
+                </IconButton>,
+              ]}
+            />
+          </div>
         </div>
-
       </div >
     )
   }
