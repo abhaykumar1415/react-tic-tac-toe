@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import './style.css';
 import userOperations from '../services/userOperations.js';
+import { sendNotification, askForPermissioToReceiveNotifications } from '../../pushnotification/push_notification';
 
 export default class HomePage extends Component {
   constructor() {
@@ -31,7 +32,7 @@ export default class HomePage extends Component {
     userOperations.addNewMatch();
   }
   render() {
-    console.log("props email", this.props.history.location.state.email)
+    // console.log("props email", this.props.history.location.state.email)
     return (
       <div className="wrapper">
         <div className="btnwrapper">
@@ -49,23 +50,15 @@ export default class HomePage extends Component {
             </Button>
         </div>
         <div>
-          <table>
-            {
-              this.state.users.map(data => {
-                return (
-                  <tr>
-                    <td></td>
-                    <td>
-                      <Button variant="contained" color="primary">
-                        Invite
-                    </Button>
-                    </td>
-                  </tr>
-                )
-              })
-            }
-          </table>
+
         </div>
+
+        <Button variant="contained" color="primary" onClick={askForPermissioToReceiveNotifications}>
+          Notification
+        </Button>
+        <Button variant="contained" color="primary" onClick={sendNotification}>
+          send
+        </Button>
       </div>
     )
   }

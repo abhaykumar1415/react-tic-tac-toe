@@ -7,7 +7,9 @@ import RouterPage from './component/routerPage';
 import HomePage from './component/homepage';
 import GameSetup from './component/gamesetup';
 
+
 class App extends Component {
+
   render() {
     return (
       <Router>
@@ -24,3 +26,7 @@ class App extends Component {
 }
 
 export default App;
+
+
+
+

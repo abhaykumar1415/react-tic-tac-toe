@@ -1,4 +1,5 @@
 import firebase from './firebase.js';
+import { askForPermissioToReceiveNotifications } from '../../pushnotification/push_notification';
 
 var database = firebase.database().ref();
 var userdata = database.child('users');
@@ -7,24 +8,29 @@ class UserOperation {
 
   getCurrentUser(emailinput) {
 
-    firebase.auth().currentUser.getIdToken(true).then(function (Token) {
-
-      userToken = Token;
-      userdata.once('value', snap => {
-        snap.forEach(function (child) {
-          let { email } = child.val();
-          if (email === emailinput) {
-            let id = child.key;
-            console.log("Token in data ", userToken);
-            userdata.child(id).child('Token').set(userToken);
-            console.log("Added successfully at", child.key);
-          }
+    askForPermissioToReceiveNotifications()
+      .then(result => {
+        console.log("result", result);
+        userToken = result;
+        userdata.once('value', snap => {
+          snap.forEach(function (child) {
+            let { email } = child.val();
+            if (email === emailinput) {
+              let id = child.key;
+              console.log("Token in data ", userToken);
+              if (child.val().Token === "") {
+                userdata.child(id).child('Token').set(userToken);
+                console.log("Added successfully at", child.key);
+              } else {
+                console.log("Already there");
+              }
+            }
+          })
         })
       })
-
-    }).catch(function (error) {
-      console.log("error :", error);
-    })
+      .catch(function (error) {
+        console.log("error :", error);
+      })
   }
   userLogin = (email, password) => {
     return new Promise((resolve, reject) => {

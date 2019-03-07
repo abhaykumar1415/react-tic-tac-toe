@@ -6,6 +6,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import Handler from '../services/authService.js';
+import { askForPermissioToReceiveNotifications } from '../../pushnotification/push_notification';
 
 export default class Login extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ export default class Login extends Component {
       Handler.userLogin(this.state.email, this.state.password)
         .then(res => {
           console.log('res :', res);
-          // Handler.getCurrentUser(this.state.email);
+          Handler.getCurrentUser(this.state.email);
           this.setState({ opne: res.success, loginState: "Successfully Logged in ." });
           this.props.history.push({
             pathname: '/homepage',
@@ -63,6 +64,7 @@ export default class Login extends Component {
   handelFunction = () => {
     this.handelSubmit();
     this.handleClick();
+    // askForPermissioToReceiveNotifications();
   }
 
   render() {
@@ -100,7 +102,7 @@ export default class Login extends Component {
         </div>
 
         <div className="login-button">
-          <Button variant="contained" color="primary" fullWidth onClick={this.handelFunction}  >
+          <Button variant="contained" color="primary" fullWidth onClick={this.handelFunction} >
             Login
         </Button>
         </div>
