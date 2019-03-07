@@ -8,12 +8,12 @@ export default class StartScreen extends Component {
     this.initializePush();
   }
   changePage = () => {
-    console.log("login", this.props.loginBtn);
+    console.log('login', this.props.loginBtn);
     this.props.changePage(this.props.loginBtn);
   }
 
   renderPage = () => {
-    console.log("register", this.props.registerBtn);
+    console.log('register', this.props.registerBtn);
     this.props.renderPage(this.props.registerBtn)
   }
 

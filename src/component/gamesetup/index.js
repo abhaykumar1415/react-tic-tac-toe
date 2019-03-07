@@ -24,7 +24,7 @@ export default class GameSetup extends Component {
     this.listen();
   }
   componentWillUnmount() {
-    console.log("COmponenet unmounted");
+    console.log('COmponenet unmounted');
   }
 
   listen = () => {
@@ -32,38 +32,38 @@ export default class GameSetup extends Component {
     match.on('value', snap => {
       console.log("snap", snap);
       snap.forEach(child => {
-        console.log("updated chance", child.val().chance);
-        console.log("updated array", child.val().values);
+        console.log('updated chance', child.val().chance);
+        console.log('updated array', child.val().values);
         this.setState({ chance: child.val().chance, valuearr: child.val().values });
-        console.log("updated array", child.val().values);
+        console.log('updated array', child.val().values);
         let array = child.val().values;
-        console.log("Array traversing on", array);
+        console.log('Array traversing on', array);
         if (array) {
           let j = 0;
           for (let j = 0; j < 7; j = j + 3) {
             let i = j;
             if ((array[i]) && (array[i] === array[i + 1]) && (array[i + 1] === array[i + 2])) {
-              console.log("winner is:", array[i]);
-              alert("Winner is:", array[i]);
+              console.log('winner is:', array[i]);
+              alert('Winner is:', array[i]);
             } else {
-              console.log("aray traveres failed");
+              console.log('array traveres failed');
             }
           }
           for (let j = 0; j < 3; j++) {
             let i = j;
             if ((array[i]) && (array[i] === array[i + 3]) && (array[i + 3] === array[i + 6])) {
-              console.log("winner is:", array[i]);
-              alert("Winner is:", array[i]);
+              console.log('winner is:', array[i]);
+              alert('Winner is:', array[i]);
             }
             else {
-              console.log("aray traveres failed");
+              console.log('array traveres failed');
             }
           }
           for (let j = 0; j < 2; j++) {
             let i = j;
             if ((array[i]) && (array[i] === array[i + 4]) && (array[i + 4] === array[i + 8])) {
-              console.log("winner is:", array[i]);
-              alert("Winner is:", array[i]);
+              console.log('winner is:', array[i]);
+              alert('Winner is:', array[i]);
             }
           }
         }
@@ -76,20 +76,20 @@ export default class GameSetup extends Component {
     Matches.startGame(this.state.matchId).then((result) => {
       this.setState({ currentmatch: result });
     }).catch(err => {
-      console.log("in render result err", err);
+      console.log('in render result err', err);
     })
   }
 
   getMatchId = () => {
     this.setState({ winner: '' });
-    console.log("Inside get match id", this.state.email);
+    console.log('Inside get match id', this.state.email);
     Matches.getMatchId(this.state.email)
       .then(result => {
         this.setState({ matchId: result });
 
         this.startGame();
       }).catch(err => {
-        console.log("error", err);
+        console.log('error', err);
       })
   }
 
@@ -98,9 +98,9 @@ export default class GameSetup extends Component {
   }
 
   onGridClick = (index) => {
-    console.log("in grid fun", index);
+    console.log('in grid fun', index);
     Matches.onGridClick(this.state.currentmatch.childkey, index).then((result) => {
-      console.log("chance :", result.chance);
+      console.log('chance :', result.chance);
     })
   }
   render() {

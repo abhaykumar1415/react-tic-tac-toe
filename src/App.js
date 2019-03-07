@@ -10,22 +10,25 @@ import GameSetup from './component/gamesetup';
 import Navigation from './component/navigation';
 import Profile from './component/profile';
 
-class App extends Component {
+const NoMatch = ({ location }) => (
+  <div>
+    <h3>No match for <code>{location.pathname}</code></h3>
+  </div>
+)
 
+class App extends Component {
   render() {
     return (
       <Router>
         <div >
-          <Switch>
-            <Route exact path="/" component={RouterPage} />
-            <Route path="/register" component={Register} />
-            <Route path="/login" component={Login} />
-            <Route path="/navigation" component={Navigation} />
-            <Route path="/homepage" component={HomePage} />
-            <Route path="/gamesetup" component={GameSetup} />
-            <Route path="/profile" component={Profile} />
-            <Route component={RouterPage} />
-          </Switch>
+          <Route path="/" exact component={RouterPage} />
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
+          <Route path="/navigation" component={Navigation} />
+          <Route path="/homepage" component={HomePage} />
+          <Route path="/gamesetup" component={GameSetup} />
+          <Route path="/profile" component={Profile} />
+          <Route component={NoMatch} />
         </div>
       </Router>
     );

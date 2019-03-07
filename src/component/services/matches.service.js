@@ -19,9 +19,6 @@ const MatchOperations = {
             reject("Doenst found");
         })
       })
-      // user.child('LZKHeVLHE3_vyuYwPec').once('value').then(snap => {
-      //   console.log("snap value", snap.val().email);
-      // });
     })
   },
 
@@ -40,7 +37,7 @@ const MatchOperations = {
   onGridClick: (childkey, inputindex) => {
     return new Promise((resolve, reject) => {
       console.log('childkey :', childkey);
-      console.log("Index of clicked block is", inputindex);
+      console.log('Index of clicked block is', inputindex);
       if (isMatchStarted === true) {
         let resultarr = {};
         console.log(' in If isMatchStarted :', isMatchStarted);
@@ -49,17 +46,17 @@ const MatchOperations = {
           console.log('once', result.val().chance);
 
           let array = result.val().values;
-          console.log("old array", array);
+          console.log('old array', array);
           array.map((data, index) => {
             if (index === inputindex) {
               chance === 'x' ? array[index] = 'x' : array[index] = 'o';
             }
           })
-          console.log("new array", array);
+          console.log('new array', array);
           updateDB('matches/' + childkey, array, chance === 'x' ? 'o' : 'x');
-          console.log("uspdated successfully");
+          console.log('updated successfully');
           console.log('after');
-          console.log("array in db", result.val().values);
+          console.log('array in db', result.val().values);
           resultarr = { chance: chance === 'x' ? 'o' : 'x', values: array }
         })
         resolve(resultarr);

@@ -6,8 +6,6 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import Handler from '../services/authService.js';
-
-import Navigation from '../navigation';
 import TextField from '@material-ui/core/TextField';
 
 export default class Login extends Component {
@@ -44,7 +42,7 @@ export default class Login extends Component {
         .then(res => {
           console.log('res :', res);
           Handler.getCurrentUser(this.state.email);
-          this.setState({ opne: res.success, loginState: "Login Successfully" });
+          this.setState({ opne: res.success, loginState: 'Login Successfully' });
           this.props.history.push({
             pathname: '/navigation',
             state: {
@@ -52,7 +50,7 @@ export default class Login extends Component {
             }
           });
         }).catch(err => {
-          console.log("value", err);
+          console.log('value', err);
         });
     }
   }
@@ -74,35 +72,23 @@ export default class Login extends Component {
         <div className="login-wrapper" >
           <div className="login-content">
             <div className="login-input">
-              <FormControl variant="outlined">
-                {/* <OutlinedInput
-                id="component-outlined"
-                name='name'
+              <TextField
+                id="outlined-email-input"
+                label="Email"
+                type="email"
+                name="email"
+                emailpattern="^[a-z0-9](\.?[a-z0-9])@qed42\.com$"
                 placeholder="User Name"
                 value={this.state.email}
                 onChange={this.handleChange}
                 fullWidth
-                labelWidth={this.labelRef ? this.labelRef.offsetWidth : 0}
-              /> */}
-                <TextField
-                  id="outlined-email-input"
-                  label="Email"
-                  type="email"
-                  name="email"
-                  emailpattern="^[a-z0-9](\.?[a-z0-9])@qed42\.com$"
-                  placeholder="User Name"
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                  fullWidth
-                  autoComplete="email"
-                  margin="normal"
-                  variant="outlined"
-                />
-              </FormControl>
+                autoComplete="email"
+                margin="normal"
+                variant="outlined"
+              />
             </div>
             <div className="login-password">
               <FormControl variant="outlined">
-
                 <OutlinedInput
                   id="component-outlined"
                   name='password'

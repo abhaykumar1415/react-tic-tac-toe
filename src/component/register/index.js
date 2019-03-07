@@ -44,7 +44,6 @@ export default class Register extends Component {
     console.log(email);
     var regx = /^[a-z0-9](\.?[a-z0-9]){5,}@qed42\.com$/;
     return regx.test(email);
-    console.log(" ", regx.test(email));
   }
 
   handelRegister = (event) => {
@@ -57,12 +56,12 @@ export default class Register extends Component {
       Handler.registerUser(event, this.state.email, this.state.password)
         .then(res => {
           console.log('res :', res);
-          this.setState({ open: res.success, loginState: "Registered Successfully" });
+          this.setState({ open: res.success, loginState: 'Registered Successfully' });
           this.props.history.push({
             pathname: '/login'
           });
         }).catch(err => {
-          console.log("value", err.result.message);
+          console.log('value', err.result.message);
           this.setState({ open: err.success, loginState: err.result.message });
         });
     }
@@ -98,61 +97,35 @@ export default class Register extends Component {
   render() {
     return (
       <div>
-        {/* {this.state.loggedIn === true ? (this.props.history.push('/login')) : */}
         <div className="login-wrapper">
           <div className="login-content">
             <div className="login-input">
-              <FormControl variant="outlined">
-                {/* <OutlinedInput
-                id="component-outlined"
-                name="name"
-                placeholder="User Name"
+              <TextField
+                id="outlined-email-input"
+                label="Email"
+                type="email"
+                name="email"
                 value={this.state.name}
-                pattern='^[a-z0-9](\.?[a-z0-9]){5,}@qed42\.com$ '
                 onChange={this.handleChange}
-                fullWidth
-                labelWidth={this.labelRef ? this.labelRef.offsetWidth : 0}
-              /> */}
-                <TextField
-                  id="outlined-email-input"
-                  label="Email"
-                  type="email"
-                  name="email"
-
-                  value={this.state.name}
-                  onChange={this.handleChange}
-                  emailpattern="^[a-z0-9](\.?[a-z0-9]){5,}@qed42\.com$"
-                  autoComplete="email"
-                  margin="normal"
-                  variant="outlined"
-                />
-              </FormControl>
+                emailpattern="^[a-z0-9](\.?[a-z0-9]){5,}@qed42\.com$"
+                autoComplete="email"
+                margin="normal"
+                variant="outlined"
+              />
             </div>
             <div className="login-password">
-              <FormControl variant="outlined">
-                {/* <OutlinedInput
-                id="component-outlined"
-                name="password"
+              <TextField
+                id="outlined-password-input"
+                label="Password"
                 type="password"
                 value={this.state.name}
                 placeholder='Password'
                 onChange={this.handleText}
                 fullWidth
-                labelWidth={this.labelRef ? this.labelRef.offsetWidth : 0}
-              /> */}
-                <TextField
-                  id="outlined-password-input"
-                  label="Password"
-                  type="password"
-                  value={this.state.name}
-                  placeholder='Password'
-                  onChange={this.handleText}
-                  fullWidth
-                  autoComplete="current-password"
-                  margin="normal"
-                  variant="outlined"
-                />
-              </FormControl>
+                autoComplete="current-password"
+                margin="normal"
+                variant="outlined"
+              />
             </div>
           </div>
           <div className="login-button">

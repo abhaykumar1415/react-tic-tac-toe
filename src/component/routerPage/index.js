@@ -13,7 +13,7 @@ export default class RouterPage extends Component {
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.authListener();
   }
 
@@ -29,25 +29,25 @@ export default class RouterPage extends Component {
 
   authListener() {
     firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          // User is signed in.
-            console.log("user:",user.email);
-            this.setState({
-                loggedIn: true
-            })
-        } else {
-          // No user is signed in.
-            this.setState({
-                loggedIn: false
-            });
-        }
+      if (user) {
+        // User is signed in.
+        console.log("user:", user.email);
+        this.setState({
+          loggedIn: true
+        })
+      } else {
+        // No user is signed in.
+        this.setState({
+          loggedIn: false
+        });
+      }
     });
-}
+  }
 
   render() {
     return (
       <div >
-        {this.state.loggedIn === true ? (this.props.history.push('/navigation')): null}
+        {this.state.loggedIn === true ? (this.props.history.push('/navigation')) : null}
         <StartScreen
           loginBtn={this.state.loginBtn}
           registerBtn={this.state.registerBtn}

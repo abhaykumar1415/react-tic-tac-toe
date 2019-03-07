@@ -7,8 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import Paper from '@material-ui/core/Paper';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core';
 import firebase from '../services/firebase.js'
 import { askForPermissioToReceiveNotifications } from '../../push-notification';
 
@@ -25,15 +24,14 @@ export default class Navigation extends Component {
   }
 
   componentDidMount() {
-    var messages = []
+    let messages = []
     userdata.on('child_added', snapshot => {
       messages.push({
         text: snapshot.val().email
       })
-      this.setState({ messages })
-      this.setState({ list: messages });
-      console.log("list", this.state.list);
-      console.log("messages", messages);
+      this.setState({ messages, list: messages })
+      console.log('list', this.state.list);
+      console.log('messages', messages);
     })
   }
 
@@ -46,8 +44,8 @@ export default class Navigation extends Component {
   };
 
   changePage = () => {
-    console.log("hii");
-    // var email = this.props.history.location.state.email;
+    console.log('hii');
+    // let email = this.props.history.location.state.email;
     this.props.history.push({
       pathname: '/profile',
       // state: {
@@ -58,7 +56,7 @@ export default class Navigation extends Component {
 
   userLogout = () => {
     firebase.auth().signOut().then(function () {
-      console.log("Sign-out successful.");
+      console.log('Sign-out successful.');
     }).catch(function (error) {
       console.log('Error occured');
     });
@@ -78,7 +76,6 @@ export default class Navigation extends Component {
   }
 
   render() {
-    console.log("hello");
     return (
       <div>
         <AppBar position="fixed" >
