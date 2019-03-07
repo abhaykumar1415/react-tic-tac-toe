@@ -9,12 +9,13 @@ import HomePage from './component/homepage';
 import GameSetup from './component/gamesetup';
 import Navigation from './component/navigation';
 import Profile from './component/profile';
+import Invitation from './component/invitations';
 
-const NoMatch = ({ location }) => (
-  <div>
-    <h3>No match for <code>{location.pathname}</code></h3>
-  </div>
-)
+// const NoMatch = ({ location }) => (
+//   <div>
+//     {/* <code>{location.pathname}</code> */}
+//   </div>
+// )
 
 class App extends Component {
   render() {
@@ -28,7 +29,8 @@ class App extends Component {
           <Route path="/homepage" component={HomePage} />
           <Route path="/gamesetup" component={GameSetup} />
           <Route path="/profile" component={Profile} />
-          <Route component={NoMatch} />
+          <Route path="/invitation" component={Invitation} />
+          {/* <Route component={RouterPage} /> */}
         </div>
       </Router>
     );

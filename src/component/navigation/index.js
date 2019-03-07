@@ -7,7 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import Button from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import firebase from '../services/firebase.js'
 import { askForPermissioToReceiveNotifications } from '../../push-notification';
 
@@ -73,6 +73,10 @@ export default class Navigation extends Component {
 
   showGame = () => {
     this.props.history.push('/gameSetup');
+  }
+
+  changeToInvites = () => {
+    this.props.history.push('/invitation');
   }
 
   render() {
