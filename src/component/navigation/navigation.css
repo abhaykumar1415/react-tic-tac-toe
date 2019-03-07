@@ -63,3 +63,17 @@
   display: flex;
   justify-content: space-around;
 }
+
+.user-text{
+  font-size: 30px;
+  margin-right: 500px;
+  
+  font-family: 'Times New Roman', Times, serif;
+}
+.gameUsers{
+  
+  display: flex;
+
+  /* background-color: red;
+  justify-content: space-between; */ 
+}

@@ -9,7 +9,8 @@ import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Paper from '@material-ui/core/Paper';
 import { Button } from '@material-ui/core';
-import firebase, { initializePush } from '../services/firebase.js'
+import firebase from '../services/firebase.js'
+import { askForPermissioToReceiveNotifications } from '../../push-notification';
 
 var database = firebase.database().ref();
 var userdata = database.child('users');
@@ -24,7 +25,6 @@ export default class Navigation extends Component {
   }
 
   componentDidMount() {
-    
     var messages = []
     userdata.on('child_added', snapshot => {
       messages.push({
@@ -37,8 +37,6 @@ export default class Navigation extends Component {
     })
   }
 
-
-
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
@@ -49,22 +47,19 @@ export default class Navigation extends Component {
 
   changePage = () => {
     console.log("hii");
-    console.log(this.props.history.location.state.email);
-    var email = this.props.history.location.state.email;
+    // var email = this.props.history.location.state.email;
     this.props.history.push({
       pathname: '/profile',
-      state: {
-        email: this.props.history.location.state.email
-      }
+      // state: {
+      //   email: this.props.history.location.state.email
+      // }
     });
   }
 
   userLogout = () => {
     firebase.auth().signOut().then(function () {
-      // Sign-out successful.
       console.log("Sign-out successful.");
     }).catch(function (error) {
-      // An error happened.
       console.log('Error occured');
     });
   }
@@ -78,15 +73,13 @@ export default class Navigation extends Component {
     this.renderToLogin();
   }
 
-  // changeToHomePage = () => {
-  //   // this.props.history.push('/navigation');
-  // }
-
+  showGame = () => {
+    this.props.history.push('/gameSetup');
+  }
 
   render() {
-
+    console.log("hello");
     return (
-
       <div>
         <AppBar position="fixed" >
           <Toolbar className="nav-toolbar" >
@@ -124,13 +117,13 @@ export default class Navigation extends Component {
               <div className="list-first" onClick={this.changePage}>
                 Profile
                 </div>
-              <div className="list" >
+              <div className="list" onClick={this.showGame}>
                 Matches
                 </div>
               <div className="list" onClick={this.changeToHomepage}>
                 Home
                 </div>
-              <div className="list">
+              <div className="list" onClick={this.changeToInvites} >
                 Invites
                 </div>
               <div className="list" onClick={this.handelButton}>
@@ -141,20 +134,23 @@ export default class Navigation extends Component {
           </Drawer>
         </div>
         <div >
-
           <div className="homepage-wrapper">
             <div className="homepage-content">
               {
                 this.state.list.map((item, index) => {
                   return (
-                    <p key={index}>{item.text}</p>
-
+                    <div key={index} className="gameUsers">
+                      <div className="user-text">{item.text}</div>
+                      <div> <Button variant="contained" color="primary" onClick={askForPermissioToReceiveNotifications}>
+                        Invite
+                      </Button>
+                      </div>
+                    </div>
                   )
                 })
               }
             </div>
           </div>
-
         </div>
       </div>
     )

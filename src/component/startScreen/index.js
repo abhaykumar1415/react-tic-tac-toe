@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import './startScreen.css';
 import Button from '@material-ui/core/Button';
-import Demo from '../Demo';
 
 export default class StartScreen extends Component {
 
@@ -36,7 +35,6 @@ export default class StartScreen extends Component {
       </Button>
           </div>
         </div>
-        <Demo />
       </div>
     )
   }

@@ -2,13 +2,12 @@ import React, { Component } from 'react'
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import './register.css';
-import firebase from '../services/firebase.js'
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
-import Handler from '../services/userOperation';
+import Handler from '../services/authService.js';
+import firebase from '../services/firebase';
 import TextField from '@material-ui/core/TextField';
-
-
 export default class Register extends Component {
   constructor(props) {
     super(props);
@@ -58,11 +57,13 @@ export default class Register extends Component {
       Handler.registerUser(event, this.state.email, this.state.password)
         .then(res => {
           console.log('res :', res);
-          this.setState({ opne: res.success, loginState: "Registered Successfully" });
-          this.props.history.push('/login');
+          this.setState({ open: res.success, loginState: "Registered Successfully" });
+          this.props.history.push({
+            pathname: '/login'
+          });
         }).catch(err => {
           console.log("value", err.result.message);
-          this.setState({ opne: err.success, loginState: err.result.message });
+          this.setState({ open: err.success, loginState: err.result.message });
         });
     }
   }
@@ -157,7 +158,7 @@ export default class Register extends Component {
           <div className="login-button">
             <Button variant="contained" color="primary" fullWidth onClick={this.handelFunction}>
               Sign Up
-      </Button>
+            </Button>
           </div>
 
           <div>

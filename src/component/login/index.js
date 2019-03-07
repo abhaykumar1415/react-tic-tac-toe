@@ -2,11 +2,10 @@ import React, { Component } from 'react'
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import './login.css';
-import firebase from '../services/firebase.js'
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
-import Handler from '../services/userOperation';
+import Handler from '../services/authService.js';
 
 import Navigation from '../navigation';
 import TextField from '@material-ui/core/TextField';
@@ -44,7 +43,7 @@ export default class Login extends Component {
       Handler.userLogin(this.state.email, this.state.password)
         .then(res => {
           console.log('res :', res);
-          // Handler.getCurrentUser(this.state.email);
+          Handler.getCurrentUser(this.state.email);
           this.setState({ opne: res.success, loginState: "Login Successfully" });
           this.props.history.push({
             pathname: '/navigation',
