@@ -6,16 +6,22 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import Handler from '../services/authService.js';
-
+import firebase from '../services/firebase';
+import TextField from '@material-ui/core/TextField';
 export default class Register extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       email: '',
       password: '',
       loginState: '',
-
+      loggedIn: false
     }
+  }
+
+  componentDidMount() {
+    this.authListener();
   }
 
   handleClick = () => {
@@ -34,7 +40,14 @@ export default class Register extends Component {
     console.log(event.target.value);
   };
 
+  validateEmail = (email) => {
+    console.log(email);
+    var regx = /^[a-z0-9](\.?[a-z0-9]){5,}@qed42\.com$/;
+    return regx.test(email);
+  }
+
   handelRegister = (event) => {
+    this.validateEmail(this.state.email);
     this.setState({ open: false, loginState: '' });
     if ((this.state.email === '') && (this.state.password === '')) {
       this.setState({ open: true, loginState: 'Fields are empty' });
@@ -43,13 +56,15 @@ export default class Register extends Component {
       Handler.registerUser(event, this.state.email, this.state.password)
         .then(res => {
           console.log('res :', res);
-          this.setState({ open: res.success, loginState: "Registered Successfully" });
+          this.setState({ open: res.success, loginState: 'Registered Successfully' });
+          this.props.history.push({
+            pathname: '/login'
+          });
         }).catch(err => {
-          console.log("value", err.result.message);
+          console.log('value', err.result.message);
           this.setState({ open: err.success, loginState: err.result.message });
         });
     }
-
   }
 
   handleText = (e) => {
@@ -62,72 +77,90 @@ export default class Register extends Component {
     this.handleClick();
   }
 
+  authListener() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        // User is signed in.
+        console.log("user:", user.email);
+        this.setState({
+          loggedIn: true
+        })
+      } else {
+        // No user is signed in.
+        this.setState({
+          loggedIn: false
+        });
+      }
+    });
+  }
+
   render() {
     return (
-      <div className="login-wrapper">
-        <div className="login-content">
-          <div className="login-input">
-            <FormControl variant="outlined">
-              <OutlinedInput
-                id="component-outlined"
-                name="name"
-                placeholder="User Name"
+      <div>
+        <div className="login-wrapper">
+          <div className="login-content">
+            <div className="login-input">
+              <TextField
+                id="outlined-email-input"
+                label="Email"
+                type="email"
+                name="email"
                 value={this.state.name}
-                pattern='^[a-z0-9](\.?[a-z0-9]){5,}@qed42\.com$ '
                 onChange={this.handleChange}
-                fullWidth
-
-                labelWidth={this.labelRef ? this.labelRef.offsetWidth : 0}
+                emailpattern="^[a-z0-9](\.?[a-z0-9]){5,}@qed42\.com$"
+                autoComplete="email"
+                margin="normal"
+                variant="outlined"
               />
-            </FormControl>
-          </div>
-          <div className="login-password">
-            <FormControl variant="outlined">
-              <OutlinedInput
-                id="component-outlined"
-                name="password"
+            </div>
+            <div className="login-password">
+              <TextField
+                id="outlined-password-input"
+                label="Password"
                 type="password"
                 value={this.state.name}
                 placeholder='Password'
                 onChange={this.handleText}
                 fullWidth
-                labelWidth={this.labelRef ? this.labelRef.offsetWidth : 0}
+                autoComplete="current-password"
+                margin="normal"
+                variant="outlined"
               />
-            </FormControl>
+            </div>
           </div>
-        </div>
-        <div className="login-button">
-          <Button variant="contained" color="primary" fullWidth onClick={this.handelFunction}>
-            Sign Up
-      </Button>
-        </div>
+          <div className="login-button">
+            <Button variant="contained" color="primary" fullWidth onClick={this.handelFunction}>
+              Sign Up
+            </Button>
+          </div>
 
-        <div>
-          <Snackbar
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            open={this.state.open}
-            autoHideDuration={6000}
-            onClose={this.handleClose}
-            ContentProps={{
-              'aria-describedby': 'message-id',
-            }}
-            message={<span id="message-id">{this.state.loginState}</span>}
-            action={[
-              <IconButton
-                key="close"
-                aria-label="Close"
-                color="inherit"
-                onClick={this.handleClose}
-              >
-                <i className="material-icons">
-                  clear
+          <div>
+            <Snackbar
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              open={this.state.open}
+              autoHideDuration={6000}
+              onClose={this.handleClose}
+              ContentProps={{
+                'aria-describedby': 'message-id',
+              }}
+              message={<span id="message-id">{this.state.loginState}</span>}
+              action={[
+                <IconButton
+                  key="close"
+                  aria-label="Close"
+                  color="inherit"
+                  onClick={this.handleClose}
+                >
+                  <i className="material-icons">
+                    clear
                 </i>
-              </IconButton>,
-            ]}
-          />
+                </IconButton>,
+              ]}
+            />
+          </div>
         </div>
       </div>
     )

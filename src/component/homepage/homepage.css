@@ -1,0 +1,27 @@
+.homepage-wrapper{
+  display: flex;
+  justify-content: space-evenly;
+  
+}
+
+.homepage-content{
+   font-size: 40px;
+   margin-top: 20PX;
+   margin-left: 20px;
+}
+
+.homepage-btn{
+  width: 80px;
+  border: 2px black;
+  height: 35px;
+  margin-top: 25px;
+  background-color: blue;
+  /* margin-left: 20px; */
+
+}
+
+.btnwrapper,tr{
+  display: flex;
+  justify-content: space-around;
+  padding:50px;
+}
