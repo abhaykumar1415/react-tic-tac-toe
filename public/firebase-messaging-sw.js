@@ -8,8 +8,6 @@ importScripts('https://www.gstatic.com/firebasejs/5.5.0/firebase-messaging.js');
 firebase.initializeApp({
   messagingSenderId: "906824560468"
 });
-
-console.log("hellooooo");
 const messaging = firebase.messaging();
 
 messaging.setBackgroundMessageHandler(function (payload) {
@@ -20,8 +18,6 @@ messaging.setBackgroundMessageHandler(function (payload) {
     body: 'Background Message body.',
     icon: '/firebase-logo.png'
   };
-
   return window.registration.showNotification(notificationTitle,
     notificationOptions);
 });
-

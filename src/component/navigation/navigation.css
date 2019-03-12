@@ -1,0 +1,79 @@
+.navigation-btn{
+  margin-left: 30px;
+}
+
+.navigation-header{
+  margin-left: 46px;
+    font-size: 36px;
+}
+
+.navigation-divider{
+  /* width: 229px; */
+  /* background-color: blue; */
+  margin-left: 74px;
+}
+
+.navigation-button{
+  margin-left: 157px;
+  /* background-color: aqua; */
+}
+
+.navigation-list{
+  margin-left: 80px;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.list{
+  margin-bottom: 20px;
+}
+
+.list-first{
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.homepage-wrapper{
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 72px;
+}
+
+.homepage-content{
+   font-size: 40px;
+   margin-top: 20PX;
+   margin-left: 20px;
+}
+
+.homepage-btn{
+  width: 80px;
+  border: 2px black;
+  height: 35px;
+  margin-top: 25px;
+  background-color: blue;
+  /* margin-left: 20px; */
+
+}
+.nav-btn{
+    align-self: flex-end;
+}
+
+.nav-toolbar{
+  display: flex;
+  justify-content: space-around;
+}
+
+.user-text{
+  font-size: 30px;
+  margin-right: 500px;
+  
+  font-family: 'Times New Roman', Times, serif;
+}
+.gameUsers{
+  
+  display: flex;
+
+  /* background-color: red;
+  justify-content: space-between; */ 
+}

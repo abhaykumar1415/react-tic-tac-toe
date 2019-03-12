@@ -1,36 +1,10 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import './style.css';
+import './homepage.css';
 import userOperations from '../services/userOperations.js';
-import { sendNotification, askForPermissioToReceiveNotifications } from '../../pushnotification/push_notification';
+import { sendNotification, askForPermissioToReceiveNotifications } from '../services/pushnotification/push_notification';
 
-export default class HomePage extends Component {
-  constructor() {
-    super();
-    this.state = {
-      users: [],
-
-    }
-  }
-  generateMatchId = () => {
-    userOperations.getToken();
-  }
-  showUsers(email) {
-    userOperations.fetchPlayers(email);
-    //   console.log("Inside show users");
-    //   userOperations.fetchPlayers(email)
-    //     .then((result) => {
-    //       this.setState({ users: result });
-    //       console.log("Users array", result);
-    //     }).catch(err => {
-    //       console.log("Users array", err);
-    //     })
-  }
-  addNewMatch = (email) => {
-    console.log("Inside new match");
-    userOperations.fetchPlayers(email);
-    userOperations.addNewMatch();
-  }
+export default class Homepage extends Component {
   render() {
     // console.log("props email", this.props.history.location.state.email)
     return (

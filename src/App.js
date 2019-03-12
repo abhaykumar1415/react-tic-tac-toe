@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
+// import http from './core/HttpClient';
 import Login from './component/login';
 import Register from './component/register';
 import RouterPage from './component/routerPage';
 import HomePage from './component/homepage';
 import GameSetup from './component/gamesetup';
+import Navigation from './component/navigation';
+import Profile from './component/profile';
+import Invitation from './component/invitations';
+
+// const NoMatch = ({ location }) => (
+//   <div>
+//     {/* <code>{location.pathname}</code> */}
+//   </div>
+// )
 
 
 class App extends Component {
@@ -14,11 +24,15 @@ class App extends Component {
     return (
       <Router>
         <div >
-          <Route exact path="/" component={RouterPage} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/homepage" component={HomePage} />
-          <Route exact path="/gamesetup" component={GameSetup} />
+          <Route path="/" exact component={RouterPage} />
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
+          <Route path="/navigation" component={Navigation} />
+          <Route path="/homepage" component={HomePage} />
+          <Route path="/gamesetup" component={GameSetup} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/invitation" component={Invitation} />
+          {/* <Route component={RouterPage} /> */}
         </div>
       </Router>
     );
@@ -26,7 +40,6 @@ class App extends Component {
 }
 
 export default App;
-
 
 
 

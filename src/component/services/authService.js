@@ -1,10 +1,22 @@
 import firebase from './firebase.js';
-import { askForPermissioToReceiveNotifications } from '../../pushnotification/push_notification';
+import { askForPermissioToReceiveNotifications } from '../services/pushnotification/push_notification';
 
 var database = firebase.database().ref();
 var userdata = database.child('users');
 var userToken;
 class UserOperation {
+
+  authListener() {
+    return new Promise((resolve) => {
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          // User is signed in.
+          console.log("user:", user.email);
+          resolve(user.email);
+        }
+      })
+    })
+  }
 
   getCurrentUser(emailinput) {
 
@@ -33,6 +45,7 @@ class UserOperation {
       })
   }
   userLogin = (email, password) => {
+
     return new Promise((resolve, reject) => {
       firebase.auth().signInWithEmailAndPassword(email, password)
         .then((result) => {
@@ -42,19 +55,6 @@ class UserOperation {
           reject({ success: false, result: err });
         })
     })
-    // firebase
-    //   .auth()
-    //   .signInWithEmailAndPassword(email, password)
-    //   .then((user) => {
-    //     console.log("Logged in successfuly");
-    //     isLoggedIn = true;
-    //   }).catch(function (error) {
-    //     console.log("log in error", error);
-    //   })
-    // if (isLoggedIn) {
-    //   return true;
-    // }
-    // return false;
   }
 
   registerUser = (event, email, password) => {
@@ -72,31 +72,7 @@ class UserOperation {
           reject({ success: false, result: err });
         })
     })
-
-    // console.log("hii");
-    // event.preventDefault();
-    // console.log("hii");
-    // const { email, password } = this.state;
-
-    // return new Promise((resolve, reject) => {
-    //   firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
-    //     let userDetails = {
-    //       email: email,
-    //       password: password
-    //     }
-    //     var didSucceed = true;
-    //     userdata.push(userDetails);
-    //     console.log("Registered success in service");
-    //     // return resolve('registered');
-    //     didSucceed ? resolve('registered') : reject('Error');
-
-    //   })
-    // })
-
   }
-
 }
-
-
 const Handler = new UserOperation();
 export default Handler;
