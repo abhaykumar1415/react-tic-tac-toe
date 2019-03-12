@@ -42,7 +42,7 @@ export default class Login extends Component {
         .then(res => {
           console.log('res :', res);
           Handler.getCurrentUser(this.state.email);
-          this.setState({ opne: res.success, loginState: 'Login Successfully' });
+          this.setState({ opne: res.success, loginState: "Successfully Logged in ." });
           this.props.history.push({
             pathname: '/navigation',
             state: {
@@ -63,6 +63,7 @@ export default class Login extends Component {
   handelFunction = () => {
     this.handelSubmit();
     this.handleClick();
+    // askForPermissioToReceiveNotifications();
   }
 
   render() {
@@ -104,7 +105,7 @@ export default class Login extends Component {
           </div>
 
           <div className="login-button">
-            <Button variant="contained" color="primary" fullWidth onClick={this.handelFunction}  >
+            <Button variant="contained" color="primary" fullWidth onClick={this.handelFunction} >
               Login
         </Button>
           </div>

@@ -5,9 +5,11 @@
     justify-content: center;
 }
 .wrapper{
-  padding: 10%;
-  display: flex;
-  justify-content: space-around
+   margin-top: 15%;
+   text-align: center
+}
+.names{
+  padding:30px;
 }
 /* .paper{
   height:150px;

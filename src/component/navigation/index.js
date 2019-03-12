@@ -9,7 +9,8 @@ import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { Button } from '@material-ui/core';
 import firebase from '../services/firebase.js'
-import { askForPermissioToReceiveNotifications } from '../../push-notification';
+import Handler from '../services/authService';
+import { getTokenofReceiver, sendNotification, askForPermissioToReceiveNotifications } from '../services/pushnotification/push_notification';
 
 var database = firebase.database().ref();
 var userdata = database.child('users');
@@ -19,11 +20,17 @@ export default class Navigation extends Component {
     super(props);
     this.state = {
       open: false,
-      list: []
+      list: [],
+      currentuser: ''
     }
   }
 
   componentDidMount() {
+    Handler.authListener().then(user => {
+      this.setState({ currentuser: user });
+    })
+    window.localStorage.setItem('current player', JSON.stringify(""));
+    window.localStorage.setItem('received player', JSON.stringify(""));
     let messages = []
     userdata.on('child_added', snapshot => {
       messages.push({
@@ -58,7 +65,7 @@ export default class Navigation extends Component {
     firebase.auth().signOut().then(function () {
       console.log('Sign-out successful.');
     }).catch(function (error) {
-      console.log('Error occured');
+      console.log('Error occured', error);
     });
   }
 
@@ -77,6 +84,12 @@ export default class Navigation extends Component {
 
   changeToInvites = () => {
     this.props.history.push('/invitation');
+  }
+
+  notification = (sendto) => {
+    getTokenofReceiver(sendto, this.state.currentuser);
+    askForPermissioToReceiveNotifications();
+    sendNotification(this.state.currentuser);
   }
 
   render() {
@@ -142,7 +155,7 @@ export default class Navigation extends Component {
                   return (
                     <div key={index} className="gameUsers">
                       <div className="user-text">{item.text}</div>
-                      <div> <Button variant="contained" color="primary" onClick={askForPermissioToReceiveNotifications}>
+                      <div> <Button variant="contained" color="primary" onClick={() => this.notification(item.text)}>
                         Invite
                       </Button>
                       </div>
